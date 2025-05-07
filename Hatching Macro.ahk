@@ -10,7 +10,7 @@ SetTimer, InitializeTooltip, -100
 $F1::
     if (!ISSPAMMING) {
         ISSPAMMING := true
-        SetTimer, SpamE, 1
+        SetTimer, SpamKeys, 1
         UpdateTooltip()
     }
 return
@@ -18,14 +18,16 @@ return
 $F3::
     if (ISSPAMMING) {
         ISSPAMMING := false
-        SetTimer, SpamE, Off
+        SetTimer, SpamKeys, Off
         UpdateTooltip()
     }
 return
 
-SpamE:
-    if (ISSPAMMING)
+SpamKeys:
+    if (ISSPAMMING) {
         Send {e}
+        Send {r}
+    }
 return
 
 InitializeTooltip:
@@ -33,7 +35,7 @@ InitializeTooltip:
 return
 
 UpdateTooltip() {
-    STATUS := ISSPAMMING ? "Spamming E :)" : "Press F1 to Start"
+    STATUS := ISSPAMMING ? "Hatching :)" : "Press F1 to Start"
     ToolTip, , , , 1
     ToolTip, %STATUS%, 53, 883, 1
     if (!ISSPAMMING) {
